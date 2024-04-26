@@ -1,12 +1,15 @@
 function majorityElement(nums: number[]): number {
-    let result
-    const majorCriticalPoint = nums.length/2
-    const acc = nums.reduce((acc,item)=>{
-        acc[item]=(acc[item]|| 0) + 1
-        if (acc[item]>=majorCriticalPoint){
-            result = item
+    let result = 0
+    let majority = 0
+    const map = new Map()
+
+    for(let num of nums){
+        map[num] = 1 + (map[num] || 0)
+        if(map[num] > majority){
+            result = num
+            majority = map[num]
         }
-        return acc
-    },{})
+    }
+
     return result
 };
