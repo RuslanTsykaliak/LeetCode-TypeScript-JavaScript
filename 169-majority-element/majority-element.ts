@@ -1,15 +1,23 @@
 function majorityElement(nums: number[]): number {
-    let result = 0
-    let majority = 0
-    const map = new Map()
+    let res = 0;
+    let count = 0;
 
-    for(let num of nums){
-        map[num] = 1 + (map[num] || 0)
-        if(map[num] > majority){
-            result = num
-            majority = map[num]
+    for (let i = 0; i < nums.length; i++) {
+        if (i === 0) {
+            res = nums[i];
+            // count = 1;
+        }
+        if (nums[i] === res) {
+            count += 1;
+        } else {
+            count -= 1;
+
+            if (count < 0) {
+                res = nums[i];
+                count = 1;
+            }
         }
     }
 
-    return result
+    return res;
 };
