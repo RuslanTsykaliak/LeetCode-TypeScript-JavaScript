@@ -12,27 +12,30 @@
  * }
  */
 
+// Function to find the diameter of a binary tree
 function diameterOfBinaryTree(root: TreeNode | null): number {
-    let diameter = 0;
+    // Initialize the diameter to 0
+    let diameter = 0
 
-    const longestPath = (node: TreeNode | null): number => {
-        if (node === null) {
-            return 0;
-        }
-        // recursively find the longest path in
-        // both left child and right child
-        const leftPath = longestPath(node.left);
-        const rightPath = longestPath(node.right);
+    // Helper function to traverse the tree
+    const traverse = (node: TreeNode | null) => {
+        // If the node is null, return 0
+        if (!node) return 0
+        // Recursively traverse the left subtree
+        let left = traverse(node.left)
+        // Recursively traverse the right subtree
+        let right = traverse(node.right)
 
-        // update the diameter if left_path plus right_path is larger
-        diameter = Math.max(diameter, leftPath + rightPath);
+        // Update the diameter if the sum of the heights of the left and right subtrees is greater than the current diameter
+        diameter = Math.max(diameter, left + right)
 
-        // return the longest one between left_path and right_path;
-        // remember to add 1 for the path connecting the node and its parent
-        return Math.max(leftPath, rightPath) + 1;
+        // Return the height of the current node, which is the maximum of the heights of the left and right subtrees plus 1
+        return 1 + Math.max(left, right)
     }
 
-    longestPath(root);
+    // Start the traversal from the root
+    traverse(root)
 
-    return diameter;
+    // Return the diameter
+    return diameter
 };
