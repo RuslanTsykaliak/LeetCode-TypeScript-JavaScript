@@ -13,33 +13,41 @@
  */
 
 function isEvenOddTree(root: TreeNode | null): boolean {
-    if (!root) return false;
+    // Indicates whether the current level is even or odd.
+    let isEvenLevel = true
 
-    const queue: TreeNode[] = [root];
-    let level = 0;
+    // Queue for level order traversal.
+    let nodeQueue: (TreeNode | null)[] = [root]
 
-    while (queue.length > 0) {
-        const levelSize = queue.length;
-        let prevVal = level % 2 === 0 ? -Infinity : Infinity;
+    // Continue until all nodes are processed.
+    while (nodeQueue.length > 0) {
+        // Holds the the previously encountered value in the current level.
+        let previousValue: number = isEvenLevel ? 0 : Number.MAX_SAFE_INTEGER
 
+        // Process all nodes at the current level.
+        let levelSize = nodeQueue.length
         for (let i = 0; i < levelSize; i++) {
-            const node = queue.shift()!;
-            const val = node.val;
+            // '!' asserts that 'node' won't be null.
+            let node = nodeQueue.shift()!
 
-            if (level % 2 === 0) {
-                if (val % 2 === 0 || val <= prevVal) return false;
-            } else {
-                if (val % 2 !== 0 || val >= prevVal) return false;
-            }
+            // Check whether the current node's value is appropriately odd or even.
+            // If the current level is even, the node's value should be odd and strictly increasing.
+            // If the current level is odd, the node's value should be even and strictly decreasing.
+            if (isEvenLevel && (node.val % 2 === 0 || previousValue >= node.val)) return false
+            if (!isEvenLevel && (node.val % 2 === 1 || previousValue <= node.val)) return false
 
-            prevVal = val;
+            // Update the value
+            previousValue = node.val
 
-            if (node.left) queue.push(node.left);
-            if (node.right) queue.push(node.right);
+            // Add child nodes to the queue for the next level.
+            if (node.left) nodeQueue.push(node.left)
+            if (node.right) nodeQueue.push(node.right)
         }
 
-        level++;
+        // Toggle the level indicator after finishing each level.
+        isEvenLevel = !isEvenLevel
     }
 
-    return true;
-}
+    // If all levels meet the conditions, the tree is an even-odd tree.
+    return true
+};
