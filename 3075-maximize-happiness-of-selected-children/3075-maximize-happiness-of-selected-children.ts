@@ -1,7 +1,7 @@
 // This function calculates the maximum happiness sum that can be achieved by choosing 'k' elements from the 'happiness' array.
 function maximumHappinessSum(happiness: number[], k: number): number {
     // Sort the 'happiness' array in descending order.
-    const n = happiness.sort((a, b) => b - a)
+    happiness.sort((a, b) => b - a)
 
     // Initialize the sum to 0.
     let sum = 0
