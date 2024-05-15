@@ -70,7 +70,7 @@ function maximumSafenessFactor(grid: number[][]): number {
                     ny < n &&
                     dis[nx][ny] >= dis[x][y]
                 ) {
-                    fa[find(nx * n + ny)] find(x * n + y)
+                    fa[find(nx * n + ny)] = find(x * n + y)
                 }
             }
 
