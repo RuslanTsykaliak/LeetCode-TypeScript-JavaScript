@@ -7,8 +7,14 @@ function reverseString(s: string[]): void {
 
     // Continue swapping characters while the left index is less than or equal to the right index
     while (leftIndex <= rightIndex) {
-        // Swap the characters at the left and right indeces
-        [s[leftIndex], s[rightIndex]] = [s[rightIndex], s[leftIndex]]
+        // Hold the character at the left index in a temporary variable
+        const temp = s[leftIndex]
+
+        // Replace the character at the left index with the character at the right index
+        s[leftIndex] = s[rightIndex]
+
+        // Replace the character at the right index with the character from the temporary variable
+        s[rightIndex] = temp
 
         // Move the left index one step towards the right
         leftIndex++
