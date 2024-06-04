@@ -17,4 +17,4 @@ function longestPalindrome(s: string): number {
     if (charCounts.length <= 1) return s.length
     // Otherwise, subtract the number of unpaired characters from the length of the string and add 1
     else return s.length - charCounts.length + 1
-} 
+};
