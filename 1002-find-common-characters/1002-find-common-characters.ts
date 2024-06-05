@@ -14,14 +14,14 @@ function commonChars(words: string[]): string[] {
     //     return false
     // })
 
-    // The second approach has a performance of 87.72%
+    // The second approach has a performance of 
     // It uses a for loop to iterate over each character in the first string of the array
     let commonCharacters: string[] = []
 
-    for (let el of words[0]) {
-        if (words.every((word) => word.includes(el))) {
-            commonCharacters.push(el)
-            words = words.map((word) => word.replace(el, ''))
+    for (let w of words[0]) {
+        if (words.every((word) => word.includes(w))) {
+            commonCharacters.push(w)
+            words = words.map((word) => word.replace(w, ''))
         }
     }
 
