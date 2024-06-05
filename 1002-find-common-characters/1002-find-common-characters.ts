@@ -18,10 +18,10 @@ function commonChars(words: string[]): string[] {
     // It uses a for loop to iterate over each character in the first string of the array
     let commonCharacters: string[] = []
 
-    for (let w of words[0]) {
-        if (words.every((word) => word.includes(w))) {
-            commonCharacters.push(w)
-            words = words.map((word) => word.replace(w, ''))
+    for (let el of words[0]) {
+        if (words.every((word) => word.includes(el))) {
+            commonCharacters.push(el)
+            words = words.map((word) => word.replace(el, ''))
         }
     }
 
