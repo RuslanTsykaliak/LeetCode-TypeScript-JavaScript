@@ -1,22 +1,15 @@
 function checkSubarraySum(nums: number[], k: number): boolean {
-    // good = length at least two, sum is a multiple of k
-    let sum = 0;
-    let remainderMap = new Map();
-    remainderMap.set(0, -1)
-    for(let i = 0; i < nums.length; i++){
-        sum += nums[i];
-        let r = sum % k;
+  nums[0] %= k;
 
-        if(remainderMap.has(r)){
-            let l = i - remainderMap.get(r);
-            if(l >= 2){
-                return true;
-            }
-        } else{
-            remainderMap.set(r, i);
-        }
-    }
+  const set = new Set([0]);
+  for (let i = 1; i < nums.length; i++) {
+    nums[i] += nums[i - 1];
+    nums[i] %= k;
 
-    return false;
+    if (set.has(nums[i])) return true;
 
-};
+    set.add(nums[i - 1]);
+  }
+
+  return false;
+}
