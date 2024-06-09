@@ -1,4 +1,4 @@
-a# LeetCode-TypeScript-JavaScript Solutions
+# LeetCode-TypeScript-JavaScript Solutions
 
 This repository contains solutions for LeetCode problems implemented in TypeScript and JavaScript.
 
