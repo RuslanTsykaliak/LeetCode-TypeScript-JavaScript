@@ -18,5 +18,5 @@ var relativeSortArray = function (arr1, arr2) {
         (sortOrderMap[a] ?? arr2.length + a) -
         // Apply the same logic for 'b'.
         (sortOrderMap[b] ?? arr2.length + b)
-        ));
+    ));
 };
