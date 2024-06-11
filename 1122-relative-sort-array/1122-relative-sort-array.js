@@ -12,11 +12,10 @@ var relativeSortArray = function (arr1, arr2) {
     // If an element is not found in sortOrderMap (i.e., it's not in arr2),
     // it will be assigned a sort order that places it at the end of arr1,
     // sorted in ascending order.
-    return arr1.sort((a, b) => (
+    return arr1.sort((a, b) =>
         // If 'a' is in arr2, use its sortOrderMap index, otherwise use
         // arr2.length + a to ensure it's placed at the end and sorted by value.
         (sortOrderMap[a] ?? arr2.length + a) -
         // Apply the same logic for 'b'.
-        (sortOrderMap[b] ?? arr2.length + b)
-    ));
+        (sortOrderMap[b] ?? arr2.length + b));
 };
