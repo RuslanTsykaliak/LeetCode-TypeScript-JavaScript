@@ -1,35 +1,54 @@
-const MAX_N = 100000;
-const bit = new Array(MAX_N + 1).fill(0);
-
-const psum = (i: number): number => {
-    let sum = 0;
-    for (i++; i > 0; i -= i & -i) sum += bit[i];
-    return sum;
-};
-
-const add = (i: number, val: number): void => {
-    for (i++; i <= MAX_N; i += i & -i) bit[i] += val;
-};
-
-const isPeak = (nums: number[], i: number): boolean => i > 0 && i < nums.length - 1 && nums[i] > nums[i - 1] && nums[i] > nums[i + 1];
-
 function countOfPeaks(nums: number[], queries: number[][]): number[] {
-    const n = nums.length;
-    for (let i = 1; i < n - 1; i++) if (isPeak(nums, i)) add(i, 1);
+    const isPeak = (i: number): boolean => i > 0 && i < nums.length - 1 && nums[i] > nums[i - 1] && nums[i] > nums[i + 1];
+
+    const peaks: number[] = [];
+
+    for (let i = 1; i < nums.length - 1; i++) {
+        if (isPeak(i)) peaks.push(i);
+    }
+
+    peaks.sort((a, b) => a - b);
+
+    const bisectLeft = (arr: number[], x: number): number => {
+        let lo = 0, hi = arr.length;
+        while (lo < hi) {
+            const mid = (lo + hi) >> 1;
+            if (arr[mid] < x) lo = mid + 1;
+            else hi = mid;
+        }
+        return lo;
+    }
+
+    const bisectRight = (arr: number[], x: number): number => {
+        let lo = 0, hi = arr.length;
+        while (lo < hi) {
+            const mid = (lo + hi) >> 1;
+            if (arr[mid] <= x) lo = mid + 1;
+            else hi = mid;
+        }
+        return lo;
+    }
 
     const res: number[] = [];
-    for (const [type, x, y] of queries) {
-        if (type === 1) {
-            res.push(psum(y - 1) - psum(x));
+
+    for (const q of queries) {
+        if (q[0] === 1) {
+            const [_, li, ri] = q;
+            const j1 = bisectRight(peaks, li);
+            const j2 = bisectLeft(peaks, ri) - 1;
+            res.push(Math.max(j2 - j1 + 1, 0));
         } else {
-            for (let i = x - 1; i <= x + 1; i++) {
-                if (i > 0 && i < n - 1 && isPeak(nums, i)) add(i, -1);
-            }
-            nums[x] = y;
-            for (let i = x - 1; i <= x + 1; i++) {
-                if (i > 0 && i < n - 1 && isPeak(nums, i)) add(i, 1);
+            const [_, i, v] = q;
+            const wasPeak = [isPeak(i - 1), isPeak(i), isPeak(i + 1)];
+            nums[i] = v;
+            for (let p = -1; p <= 1; p++) {
+                const idx = i + p;
+                const nowPeak = isPeak(idx);
+                const peakIndex = bisectLeft(peaks, idx);
+                if (nowPeak && !wasPeak[p + 1]) peaks.splice(peakIndex, 0, idx);
+                else if (!nowPeak && wasPeak[p + 1] && peakIndex < peaks.length && peaks[peakIndex] === idx) peaks.splice(peakIndex, 1);
             }
         }
     }
     return res;
-}
+};
