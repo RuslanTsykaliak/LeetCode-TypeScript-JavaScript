@@ -1,7 +1,7 @@
 function countOfPeaks(nums: number[], queries: number[][]): number[] {
     const isPeak = (i: number): boolean => i > 0 && i < nums.length - 1 && nums[i] > nums[i - 1] && nums[i] > nums[i + 1];
     const peaks: number[] = [];
-    
+
     for (let i = 1; i < nums.length - 1; i++) {
         if (isPeak(i)) peaks.push(i);
     }
@@ -49,6 +49,5 @@ function countOfPeaks(nums: number[], queries: number[][]): number[] {
             }
         }
     }
-
     return res;
 }
