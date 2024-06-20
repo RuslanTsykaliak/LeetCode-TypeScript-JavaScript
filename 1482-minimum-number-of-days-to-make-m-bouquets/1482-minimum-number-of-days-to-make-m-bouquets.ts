@@ -1,17 +1,13 @@
 function minDays(bloomDay: number[], m: number, k: number): number {
-    if (m * k > bloomDay.length) {
-        return -1;
-    }
-
-    let left = Math.min(...bloomDay);
-    let right = Math.max(...bloomDay);
+    if (m * k > bloomDay.length) return -1;
+    let [left, right] = [Math.min(...bloomDay), Math.max(...bloomDay)];
 
     while (left < right) {
         const mid = Math.floor((left + right) / 2);
-        let bouquets = 0;
-        let flowers = 0;
-        for (let i = 0; i < bloomDay.length; i++) {
-            if (bloomDay[i] <= mid) {
+        let [bouquets, flowers] = [0, 0];
+
+        for (let day of bloomDay) {
+            if (day <= mid) {
                 flowers++;
                 if (flowers == k) {
                     bouquets++;
@@ -21,7 +17,6 @@ function minDays(bloomDay: number[], m: number, k: number): number {
                 flowers = 0;
             }
         }
-
         if (bouquets >= m) {
             right = mid;
         } else {
