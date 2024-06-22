@@ -1,22 +1,11 @@
 function numberOfSubarrays(nums: number[], k: number): number {
-    let subarrays = 0
-    let oddCount = 0
-    let start = 0
-    let subarraySiblings = 0
-    for (let end = 0; end < nums.length; end++) {
-        if (nums[end] % 2 === 1) {
-            oddCount++
-            subarraySiblings = 0
-        }
-        while (oddCount === k) {
-            if (nums[start] % 2 === 1) {
-                oddCount--
-            }
-            subarraySiblings++
-            start++
-        }
-        subarrays += subarraySiblings
+    let cnt = new Array(nums.length + 1).fill(0);
+    let t = 0, ans = 0;
+    cnt[0] = 1;
+    for (let v of nums) {
+        t += v & 1;
+        ans += t - k >= 0 ? cnt[t - k] : 0;
+        cnt[t]++;
     }
-
-    return subarrays
+    return ans;
 };
