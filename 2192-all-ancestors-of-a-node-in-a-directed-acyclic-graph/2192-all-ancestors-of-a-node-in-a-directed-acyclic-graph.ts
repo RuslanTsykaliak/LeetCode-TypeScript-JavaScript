@@ -20,5 +20,4 @@ function getAncestors(n: number, edges: number[][]): number[][] {
     }
 
     return ancestors.map(ancestorSet => Array.from(ancestorSet).sort((a, b) => a - b));
-
 };
