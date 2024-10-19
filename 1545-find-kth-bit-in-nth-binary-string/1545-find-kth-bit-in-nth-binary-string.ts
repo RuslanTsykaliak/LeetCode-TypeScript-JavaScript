@@ -10,7 +10,7 @@ function findKthBit(n: number, k: number): string {
     const returnNum = recursion('0', 1)
 
     return returnNum[k - 1]
-};
+}
 
 function invert(s: string): string {
     return s.split('').map(el => el === '1' ? '0' : '1').join('')
