@@ -1,6 +1,6 @@
 # LeetCode-TypeScript-JavaScript Solutions
 
-This repository contains solutions for LeetCode problems implemented in TypeScript and JavaScript.
+This repository contains solutions for LeetCode problems implemented in TypeScript (JavaScript) and Python.
 
 ## Overview
 
@@ -10,6 +10,7 @@ The purpose of this repository is to provide clear, efficient, and well-explaine
 
 - **TypeScript**
 - **JavaScript**
+- **Python**
 
 ## Usage
 
